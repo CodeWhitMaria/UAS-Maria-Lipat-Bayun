@@ -1,0 +1,34 @@
+// Program Soal 1: Binary Search untuk dataset terurut
+#include <iostream>
+using namespace std;
+
+int binarySearch(int arr[], int size, int key) {
+    int low = 0, high = size - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (arr[mid] == key)
+            return mid;
+        else if (arr[mid] < key)
+            low = mid + 1;
+        else
+            high = mid - 1;
+    }
+    return -1;
+}
+
+int main() {
+    // Nama dan NIM
+    cout << "Nama: Maria Lipat Bayun" << endl;
+    cout << "NIM: 241011402839" << endl;
+
+    // Contoh Soal 1: Binary Search
+    int datasetA[] = {2, 4, 6, 8, 10, 12, 14};
+    int key = 10;
+    int index = binarySearch(datasetA, 7, key);
+    if (index != -1)
+        cout << "Key " << key << " ditemukan di indeks " << index << endl;
+    else
+        cout << "Key " << key << " tidak ditemukan" << endl;
+
+    return 0;
+}
