@@ -1,0 +1,94 @@
+// Soal 1: Binary Search untuk dataset terurut
+#include <iostream>
+using namespace std;
+
+int binarySearch(int arr[], int size, int key) {
+    int low = 0, high = size - 1;
+    while (low <= high) {
+        int mid = low + (high - low) / 2;
+        if (arr[mid] == key)
+            return mid;
+        else if (arr[mid] < key)
+            low = mid + 1;
+        else
+            high = mid - 1;
+    }
+    return - 1;
+}
+// Soal 2: Merge Sort untuk data pesanan
+void merge(int arr[], int left, int mid, int right) {
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+    int L[n1], R[n2];
+
+    for (int i = 0; i < n1; i++)
+        L[i] = arr[left + i];
+    for (int i = 0; i < n2; i++)
+        R[i] = arr[mid + 1 + i];
+
+    int i = 0, j = 0, k = left;
+    while (i < n1 && j < n2) {
+        if (L[i] <= R[j]) {
+            arr[k] = L[i];
+            i++;
+        } else {
+            arr[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+
+    while (i < n1) {
+        arr[k] = L[i];
+        i++;
+        k++;
+    }
+
+    while (j < n2) {
+        arr[k] = R[j];
+        j++;
+        k++;
+    }
+}
+
+void mergeSort(int arr[], int left, int right) {
+    if (left < right) {
+        int mid = left + (right - left) / 2;
+        mergeSort(arr, left, mid);
+        mergeSort(arr, mid + 1, right);
+        merge(arr, left, mid, right);
+    }
+}
+
+int main() {
+	//Nama dan NIM
+	cout << "Nama: Maria Lipat Bayun" << endl;
+	cout << "NIM: 241011402839" << endl;
+	
+    // Contoh Soal 1: Binary Search
+    int datasetA[] = {2, 4, 6, 8, 10, 12, 14};
+    int key = 10;
+    int index = binarySearch(datasetA, 7, key);
+    if (index != -1)
+        cout << "Key " << key << " ditemukan di indeks " << index << endl;
+    else
+        cout << "Key " << key << " tidak ditemukan" << endl;
+
+    // Contoh Soal 2: Merge Sort
+    int pesanan[] = {50, 20, 40, 70, 10, 30, 60};
+    int n = sizeof(pesanan) / sizeof(pesanan[0]);
+
+    cout << "Data sebelum sorting: ";
+    for (int i = 0; i < n; i++)
+        cout << pesanan[i] << " ";
+    cout << endl;
+
+    mergeSort(pesanan, 0, n - 1);
+
+    cout << "Data setelah sorting: ";
+    for (int i = 0; i < n; i++)
+        cout << pesanan[i] << " ";
+    cout << endl;
+
+    return 0;
+}
